@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2030 Vision Wiki - Search</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">
+            <a href="/index">
+                <img src="/img/mylogo.png" alt="2030 Vision Wiki Logo">
+            </a>
+        </div>
+        <ul class="navs">
+            <li><a href="/index">Home</a></li>
+            <li><a href="/add">Add wiki</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h1>Search for wikis</h1>
+        <form action="/search" method="GET">
+            <input type="search" id="search" name="title" placeholder="Enter the Title of the wiki" required>
+            <button type="submit">Search</button>
+          </form>
+                      <table id="wiki-table">
+                <thead>
+                    <tr>
+                        <th>Title (Editable)</th>
+                        <th>Location (Editable)</th>
+                        <th>Date</th>
+                        <th>Company</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(wikis && wikis.length > 0){ %>
+                        <% wikis.forEach(wiki => { %>
+                            <tr>
+                                <td contenteditable data-field="title" data-id="<%= wiki._id %>"><%= wiki.title %></td>
+                                <td contenteditable data-field="location" data-id="<%= wiki._id %>"><%= wiki.location %></td>
+                                <td data-field="date" data-id="<%= wiki._id %>"><%= wiki.date %></td>
+                                <td data-field="company" data-id="<%= wiki._id %>"><%= wiki.company %></td>
+                                <td data-field="category" data-id="<%= wiki._id %>"><%= wiki.category %></td>
+                                <td data-field="description" data-id="<%= wiki._id %>"><%= wiki.description %></td>
+                                <td>
+                                    <!-- Update Button -->
+                                    <form action="/wiki/update/<%= wiki._id %>" method="post" onsubmit="prepareFormData('<%= wiki._id %>')">
+                                        <input type="hidden" name="title" id="title-input-<%= wiki._id %>" value="">
+                                        <input type="hidden" name="location" id="location-input-<%= wiki._id %>" value="">                        
+                                        <button type="submit">Update</button>
+                                    </form>
+                                    
+                                </td>
+                                <td>
+                                    <!-- Delete Button -->
+                                    <form action="/wiki/delete/<%= wiki._id %>" method="post">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="8">No data to display</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+                
+                
+            </table>
+            <% if(totalPages > 1){ %>
+                <div class="pagination">
+                    <% if(hasPrevPage){ %>
+                        <a href="/search?page=<%= prevPage %>&limit=<%= limit %>">Previous</a>
+                    <% } %>
+                    <% for(let i = 1; i <= totalPages; i++){ %>
+                        <a href="/search?page=<%= i %>&limit=<%= limit %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+                    <% } %>
+                    <% if(hasNextPage){ %>
+                        <a href="/search?page=<%= nextPage %>&limit=<%= limit %>">Next</a>
+                    <% } %>
+                </div>
+            <% } %>
+                   
+            </section>
+</main>
+
+<footer>
+    &copy;  2030 Vision Wiki
+</footer>
+<br><br>
+<script src="/js/script.js"></script>
+</body>
+</html>

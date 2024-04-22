@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2030 Vision Wiki - Add Entry</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<header>
+    <nav>
+        <div class="logo">
+            <a href="index">
+                <img src="/img/mylogo.png" alt="2030 Vision Wiki Logo">
+            </a>
+        </div>
+        <ul class="navs">
+            <li><a href="index">Home</a></li>
+            <li><a href="add">Add Project</a></li>
+            <li><a href="search">Search</a></li>
+            <li><a href="about">About</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+    <main>
+        <section>
+            <h1>Add New Projects</h1>
+            <form action="/wiki/v1/" method="post">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" pattern="[A-Za-z ]{3,30}" required>
+                <label for="Location">Location</label>
+                <input type="text" id="Location" name="Location" pattern="[A-Za-z0-9 ]{3,20}" required>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+                <label for="Company">Company</label>
+                <input type="text" id="Company" name="Company" pattern="[A-Za-z ]{3,20}" required>
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">--Please choose an option--</option>
+                    <option value="technology">Technology</option>
+                    <option value="sustainability">Sustainability</option>
+                    <option value="equality">Equality</option>
+                </select>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+                <div>
+                    <button type="submit">Add Project</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+<footer>
+    &copy;  2030 Vision Wiki
+</footer>
+<br><br>
+
+</html>
